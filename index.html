@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RC Vape Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <i class="fas fa-bars menu-Icon" onclick="toggleMenu()"></i>
+    <div class="logo-container">
+      <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC Logo" class="logo-img" />
+      <span class="logo-text">RC VAPE STORE</span>
+    </div>
+    <i class="fas fa-user user-Icon" onclick="toggleLogin()"></i>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search For Products" />
+    <button><i class="fas fa-search"></i></button>
+  </div>
+
+  <div class="banner">
+    <img src="Icon/WhatsApp Image 2025-04-23 at 22.59.29_4c73421f-Photoroom 2.png" alt="Produk Vape" />
+  </div>
+
+  <div class="product-slide">
+    <img src="Icon/IMG_4710 1.png" alt="Produk IDJ" />
+  </div>
+
+  <div onclick="openCart()" style="position: relative;">
+    <i class="fas fa-shopping-cart"></i>
+    <span>Cart</span>
+    <span id="cartCount" class="cart-count" style="display: none;">0</span>
+  </div>
+  
+  <div id="sideMenu" class="side-menu">
+    <div class="tab-header">
+      <button class="tab active" onclick="switchTab('categories')">CATEGORIES</button>
+      <button class="tab" onclick="switchTab('menu')">MENU</button>
+    </div>
+    <div class="tab-content" id="categoriesTab">
+      <ul class="menu-list">
+        <li onclick="openLiquidPage()"><img src="Icon/Icon Liquid.png"> Liquid</li>
+        <li onclick="openMODPage()"><img src="Icon/image.png"> MOD</li>
+        <li onclick="openPODPage()"><img src="Icon/image (1).png"> POD</li>
+        <li onclick="openAtomizerPage()"><img src="Icon/image (2).png"> Atomizer</li>
+        <li onclick="openAccessoriesPage()"><img src="Icon/image (3).png"> Accessories</li>
+      </ul>
+    </div>
+    <div class="tab-content" id="menuTab" style="display: none;">
+      <ul class="menu-list">
+        <li><span>Promotions</span></li>
+        <li><span>Stores</span></li>
+        <li><i class="far fa-star"></i> <span>Point</span></li>
+        <li><span>Pesanan Saya</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="loginPanel" class="login-popup">
+    <h2 id="loginTitle" style="text-align: center; margin-bottom: 16px;">Login</h2>
+  
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <ul class="menu-list">
+        <li><input type="email" id="loginUser" name="loginUser" placeholder="Email" required></li>
+        <li><input type="password" id="loginPass" name="loginPass" placeholder="Password" required></li>
+        <li><button type="submit">Login</button></li>
+        <li style="text-align: center; font-size: 14px; padding-top: 8px;">
+          <a href="#" style="color: #184E37; text-decoration: underline;" onclick="showRegisterForm()">Belum punya akun? Registrasi</a>
+        </li>
+      </ul>
+    </form>
+  
+    <h2 id="registerTitle" style="text-align: center; margin-bottom: 16px; display: none;">Registrasi</h2>
+  
+    <form id="registerForm" onsubmit="handleRegister(event)" style="display: none;">
+      <ul class="menu-list">
+        <li><input type="email" id="regEmail" name="regEmail" placeholder="Email" required></li>
+        <li><input type="password" id="regPass" name="regPass" placeholder="Password" required></li>
+        <li><input type="number" id="regAge" name="regAge" placeholder="Umur" required></li>
+        <li><input type="tel" id="regPhone" name="regPhone" placeholder="Nomor Telepon" required></li>
+        <li><button type="submit">Register</button></li>
+        <li style="text-align: center; font-size: 14px; padding-top: 8px;">
+          <a href="#" style="color: #184E37; text-decoration: underline;" onclick="showLoginForm()">Sudah punya akun? Login</a>
+        </li>
+      </ul>
+    </form>
+  </div>
+  
+  <div id="overlay" class="overlay" onclick="closeAllMenus()"></div>
+
+  <div id="profilePanel" class="profile-popup">
+    <div class="profile-header">
+      <h2>Profil Saya</h2>
+      <span class="close-btn" onclick="closeProfile()">&times;</span>
+    </div>
+    <div class="profile-content">
+      <div class="profile-Icon">
+        <i class="fas fa-user-circle"></i>
+      </div>
+      <p id="profileName"></p>
+      <p id="profileEmail"></p>
+      <button onclick="handleLogout()">Logout</button>
+    </div>
+  </div>  
+  <div id="notification"></div>
+
+  <div id="pointPanel" class="point-panel">
+    <div class="point-header">
+        <button onclick="closePointPanel()" class="back-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <h2>RC Point</h2>
+        <span style="width: 24px;"></span>
+      </div>
+      
+    <div class="point-body">
+      <div class="point-summary">
+        <p><img src="Icon/image (4).png" style="width: 18px; vertical-align: middle; margin-right: 6px;"> <strong>0 Point</strong></p>
+        <p>Dapatkan RC Point dari setiap transaksi</p>
+      </div>
+      <h3>Liquid</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (5).png" alt="Crackz Taro">
+          <p>CRACKZ ICE – TARO 
+            ICE CREAM 60ML</p>
+          <span><img src="Icon/image (4).png">150 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (6).png" alt="King’s Reserve">
+          <p>KING’S RESERVE – 
+            NUTTY MOCHA 60ML</p>
+          <span><img src="Icon/image (4).png">180 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+            <img src="Icon/image (7).png" alt="LUNAR">
+            <p>LUNAR – STRAWBERRY CHEESECAKE</p>
+            <span><img src="Icon/image (4).png">180 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (8).png" alt="Killer Ice">
+            <p>KILLER ICE PF – APPLE 
+                30ML – 15MG</p>
+            <span><img src="Icon/image (4).png">250 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>        
+      </div>
+
+      <h3>MOD</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (9).png" alt="HOTCIG R99 MOD">
+          <p>HOTCIG R99 MOD</p>
+          <span><img src="Icon/image (4).png">3900 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (10).png" alt="TRML T99 MOD">
+          <p>TRML T99 MOD</p>
+          <span><img src="Icon/image (4).png">4700 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+            <img src="Icon/image (11).png" alt="HOTCIG R234 BARONG – SHADE GREY">
+            <p>HOTCIG R234 BARONG – SHADE GREY</p>
+            <span><img src="Icon/image (4).png">5200 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (12).png" alt="CENTAURUS P200">
+            <p>CENTAURUS P200</p>
+            <span><img src="Icon/image (4).png">1800 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+      </div>
+
+      <h3>Atomizer</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (13).png" alt="CARTRIDGE OXVA VPRIME 0.8 OHM 5ML – 1PCS">
+          <p>CARTRIDGE OXVA VPRIME 0.8 OHM 5ML – 1PCS</p>
+          <span><img src="Icon/image (4).png">3000 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (14).png" alt="NITROUS RDA 22MM DUAL CAP ONLY – SHINY GOLD BASTARD">
+          <p>NITROUS RDA 22MM DUAL CAP ONLY – SHINY GOLD BASTARD</p>
+          <span><img src="Icon/image (4).png">1800 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+      </div>
+
+      <h3>POD</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (15).png" alt="CENTAURUS B80S">
+          <p>CENTAURUS B80S</p>
+          <span><img src="Icon/image (4).png">8000 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (16).png" alt="ARGUS PRO 2">
+          <p>ARGUS PRO 2</p>
+          <span><img src="Icon/image (4).png">3800 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+            <img src="Icon/image (17).png" alt="DOTMOD DOTAIO X PRO KIT – BLACK">
+            <p>DOTMOD DOTAIO X PRO KIT – BLACK</p>
+            <span><img src="Icon/image (4).png">8500 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (18).png" alt="NEVOKS BELLATO AIO KIT">
+            <p>NEVOKS BELLATO AIO KIT</p>
+            <span><img src="Icon/image (4).png">7500 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (19).png" alt="ZULUU BORO">
+            <p>ZULUU BORO</p>
+            <span><img src="Icon/image (4).png">1270 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (20).png" alt="BANTAM BOX V3">
+            <p>BANTAM BOX V3</p>
+            <span><img src="Icon/image (4).png">1500 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+      </div>
+
+      <h3>Accessories</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (21).png" alt="ZEUS LCD CHARGER">
+          <p>ZEUS LCD CHARGER</p>
+          <span><img src="Icon/image (4).png">250 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (22).png" alt="ZEUS TOOLKIT">
+          <p>ZEUS TOOLKIT</p>
+          <span><img src="Icon/image (4).png">250 Point</span>
+          <button class="select-button">Pilih Produk</button>
+        </div>
+        <div class="point-product-item">
+            <img src="Icon/image (23).png" alt="BEAR COTTON">
+            <p>BEAR COTTON</p>
+            <span><img src="Icon/image (4).png">150 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+          <div class="point-product-item">
+            <img src="Icon/image (24).png" alt="TURBO CELL BATTERY">
+            <p>TURBO CELL BATTERY</p>
+            <span><img src="Icon/image (4).png">350 Point</span>
+            <button class="select-button">Pilih Produk</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div onclick="openVoucherPanel()">
+      <i class="fas fa-percent"></i>
+      <span>Promo</span>
+    </div>
+    <div onclick="openPointPanel()">
+      <i class="fas fa-star"></i>
+      <span>Point</span>
+    </div>
+    <div>
+      <i class="fas fa-shopping-cart"></i>
+      <span>Cart</span>
+    </div>
+  </div>
+
+  <div id="voucherPanel" class="point-panel">
+    <div class="point-header">
+      <button onclick="closeVoucherPanel()" class="back-btn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h2>Voucher</h2>
+      <span style="width: 24px;"></span>
+    </div>
+  
+    <div class="voucher-body">
+      <h3 class="voucher-title">My Voucher</h3>
+  
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai Gopay Diskon 10%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 15K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 79.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+  
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai DANA Diskon 10%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 20K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 64.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+  
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai SPay Diskon 15%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 25K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 64.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai Seabank Diskon 20%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 20K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 34.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Bright Deals! Diskon 20%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 50K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 79.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai JAGO Diskon 25%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 14K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 64.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai OVO Diskon 10%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 15K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 54.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>
+
+      <div class="voucher-box">
+        <div class="voucher-header">
+            <img src="Icon/ChatGPT Image 30 Jun 2025, 02.06 Background Removed.17.png" alt="RC VapeStore" class="voucher-logo">
+        </div>
+
+        <div class="voucher-info">
+          <p class="voucher-main"><strong>Diskon pakai BRI Diskon 5%</strong></p>
+          <p class="voucher-sub">Maksimum Rp 25K</p>
+          <div class="voucher-detail">
+            <span>Berlaku Hingga<br><strong>12 Mei 2025</strong></span>
+            <span>Min transaksi<br><strong>Rp 75.000</strong></span>
+          </div>
+        </div>
+        <button class="voucher-btn">Pakai</button>
+      </div>  
+    </div>
+  </div>
+
+  <div id="liquidPage" class="point-panel">
+    <div class="point-header">
+      <button onclick="closeLiquidPage()" class="back-btn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h2>Liquid</h2>
+      <span style="width: 24px;"></span>
+    </div>
+  
+    <div class="point-body">
+      <h3>Daftar Produk Liquid</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (5).png" alt="Crackz Taro">
+          <p>CRACKZ ICE – TARO ICE CREAM 60ML</p>
+          <span class="price-rp">Rp 120.000</span>
+          <button class="select-button"
+  onclick="addToCart('CRACKZ ICE – TARO ICE CREAM 60ML', 'Rp 120.000', 'Icon/image (5).png')">Beli</button>
+
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (6).png" alt="King’s Reserve">
+          <p>KING’S RESERVE – NUTTY MOCHA 60ML</p>
+          <span class="price-rp">Rp 135.000</span>
+          <button class="select-button"
+  onclick="addToCart('KING’S RESERVE – NUTTY MOCHA 60ML', 'Rp 135.000', 'Icon/image (6).png')">Beli</button>
+
+        </div>
+      </div>      
+    </div>
+  </div>
+
+  <div id="PODPage" class="point-panel">
+    <div class="point-header">
+      <button onclick="closePODPage()" class="back-btn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h2>POD</h2>
+      <span style="width: 24px;"></span>
+    </div>
+  
+    <div class="point-body">
+      <h3>Daftar Produk POD</h3>
+      <div class="point-product">
+        <div class="point-product-item">
+          <img src="Icon/image (17).png" alt="DOTMOD DOTAIO X PRO KIT – BLACK">
+          <p>DOTMOD DOTAIO X PRO KIT – BLACK</p>
+          <span class="price-rp">Rp 1.200.000</span>
+          <button class="select-button"
+  onclick="addToCart('DOTMOD DOTAIO X PRO KIT – BLACK', 'Rp 1.200.000', 'Icon/image (17).png')">Beli</button>
+        </div>
+        <div class="point-product-item">
+          <img src="Icon/image (15).png" alt="CENTAURUS B80S">
+          <p>CENTAURUS B80S</p>
+          <span class="price-rp">Rp 800.000</span>
+          <button class="select-button"
+  onclick="addToCart('CENTAURUS B80S', 'Rp 800.000', 'Icon/image (15).png')">Beli</button>
+        </div>
+      </div>      
+    </div>
+  </div>
+
+  <div id="cartPanel" class="point-panel">
+    <div class="point-header">
+      <button onclick="closeCart()" class="back-btn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <h2>Keranjang</h2>
+      <span style="width: 24px;"></span>
+    </div>
+    <div class="point-body" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="total">
+        <span>Total:</span>
+        <strong id="cartTotal">Rp 0</strong>
+      </div>
+      <button onclick="checkoutCart()" class="checkout-btn">Checkout</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
